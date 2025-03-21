@@ -18,14 +18,15 @@ body {
     transform: translate(-50%, -50%);
     position: fixed;
     border-radius: 30px;
-    background-image: radial-gradient(#FCDEBE, #fcdebe3c);
-    width: 600px;
-    height: 350px;
+    background-image: radial-gradient(#fcdebebb, #fcdebe3c);
+    width: 700px;
+    height: 400px;
     padding: 0px;
     display: flex;
     align-items: center;
     justify-content: center;
     box-shadow: 0 10px 20px #afacac;
+    z-index: 8;
 } 
 
 .container img {
@@ -45,9 +46,6 @@ body {
     border: none;
     box-shadow: 0 5px 10px #a06a3890;
 
-}
-
-.container .left {
 }
 
 .container button {
@@ -85,7 +83,43 @@ body {
     position: fixed;
     justify-content: center;
     align-items: center;
-    top: 30%;
-    left: 40%;
+    top: 48%;
+    left: 47%;
+    transform: translate(-50%, -50%);
+
+}
+
+.circulo2 {
+    width: 250px;
+    position: fixed;
+    justify-content: center;
+    align-items: center;
+    top: 51%;
+    left: 55%;
+    transform: translate(-50%, -50%);
+
+}
+
+
+.circulo3 {
+    width: 350px;
+    position: fixed;
+    justify-content: center;
+    align-items: center;
+    top: 50%;
+    left: 55%;
+    transform: translate(-50%, -50%);
+    top: 5%;
+    left: 95%;
+}
+
+.circulo4 {
+    width: 350px;
+    position: fixed;
+    justify-content: center;
+    align-items: center;
+    top: 75%;
+    right: 85%;
+
 }
 
