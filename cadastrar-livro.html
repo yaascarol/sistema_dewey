@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="cadastrar-livro.css">
+</head>
+<body>
+    <nav>
+        <h3>ADMINISTRADOR - (NOME)</h3>
+        <h1>CADASTRO DE LIVROS</h1>
+        <div class="menu">
+            <ul>
+                    <li class="menu-icon"><img src="332-3321096_mobile-menu-brown-menu-icon-png.png" alt="">
+                        <ul>
+                            <li class="menu-dropdown">Livros
+                            <ul class="menu-dropdown-right">
+                                <li><a href="cadastrar-livro.html">Cadastrar</a></li>
+                                <li><a href="#">Editar</a></li>
+                                <li><a href="#">Listar</a></li>
+                            </ul>
+                            </li>
+                            <li class="menu-dropdown">Gêneros
+                                <ul class="menu-dropdown-right">
+                                    <li><a href="#">Cadastrar</a></li>
+                                    <li><a href="#">Editar</a></li>
+                                    <li><a href="#">Listar</a></li>
+                                </ul>
+                            </li>
+                            <li class="menu-dropdown">Leitores
+                                <ul class="menu-dropdown-right">
+                                    <li><a href="#">Cadastrar</a></li>
+                                    <li><a href="#">Editar</a></li>
+                                    <li><a href="#">Listar</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <button class="search"><input type="search" placeholder="Consultar..."> <img src="search-icon-png-21.png"></button>
+            <button class="user"><a href="login.html"><img src="logout-icon-2048x2048-libuexip.png"> <h6>SAIR</a><h6></button>
+        </div>
+    </nav>
+    <div class="container">
+        <form class="dados">
+            <div id="dados-esquerda">
+                <img src="" alt="" id="capa">
+                <input type="number" name="estoque-livro" placeholder="Estoque:" class="estoque-livro">
+            </div>
+            <div id="dados-direita">
+                <input type="text" placeholder="Título do Livro:" required class="titulo">
+                <input type="text" placeholder="Gênero do Livro:" class="genero">
+                <textarea name="resumo" class="resumo" placeholder="Resumo"></textarea>
+            </div>
+        </form>
+    </div>
+    </div>
+</body>
+</html>
