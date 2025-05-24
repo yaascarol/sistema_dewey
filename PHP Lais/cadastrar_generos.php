@@ -2,7 +2,8 @@
 require_once ('conexao.php');
 
 if(isset($_POST['submit'])){
-    $Nome = $_POST['Genero'];
+    $Genero = $_POST['Genero'];
+
     $resultado = $conexao->query ("INSERT INTO Genero(Genero) VALUES ('$Genero')"); 
 }
 ?>
@@ -28,16 +29,16 @@ if(isset($_POST['submit'])){
                         <ul>
                             <li class="menu-dropdown">Livros
                             <ul class="menu-dropdown-right">
-                                <li><a href="cadastrar_livro.php">Cadastrar</a></li>
-                                <li><a href="editar_livro.php">Editar</a></li>
-                                <li><a href="listar_livro.php">Listar</a></li>
+                                <li><a href="cadastrar_livros.php">Cadastrar</a></li>
+                                <li><a href="editar_livros.php">Editar</a></li>
+                                <li><a href="listar_livros.php">Listar</a></li>
                             </ul>
                             </li>
                             <li class="menu-dropdown">Gêneros
                                 <ul class="menu-dropdown-right">
-                                    <li><a href="cadastrar_genero.php">Cadastrar</a></li>
-                                    <li><a href="editar_genero.php">Editar</a></li>
-                                    <li><a href="listar_genero.php">Listar</a></li>
+                                    <li><a href="cadastrar_generos.php">Cadastrar</a></li>
+                                    <li><a href="editar_generos.php">Editar</a></li>
+                                    <li><a href="listar_generos.php">Listar</a></li>
                                 </ul>
                             </li>
                             <li class="menu-dropdown">Leitores
@@ -50,19 +51,19 @@ if(isset($_POST['submit'])){
                         </ul>
                     </li>
                 </ul>
-                <button class="search"><input type="search" placeholder="Consultar..."> <img src="/imagens/search-icon-png-21.png"></button>
-                <button class="user"><a href="login.html"><img src="../imagens/logout-icon-2048x2048-libuexip.png"><h6>SAIR</a><h6></button>
+                <button class="search"><input type="search" placeholder="Consultar..."> <img src="imagens/search-icon-png-21.png"></button>
+                <button class="user"><a href="login.html"><img src="imagens/logout-icon-2048x2048-libuexip.png"><h6>SAIR</a><h6></button>
         </div>
     </nav>
 
     <div class="container">
-        <form class="dados" action="cadastrar_genero.php" method="post">
+        <form class="dados" action="cadastrar_generos.php" method="post">
             <div id="dados-esquerda">
                 <div id="capa"></div>
             </div>
             <div id="dados-direita">
-                <input type="text" name="genero" placeholder="Gênero:" class="genero">
-                <button><a href="index.html">Cadastrar</a></button>
+                <input type="text" name="Genero" placeholder="Gênero:" class="genero">
+                <button type="submit" name="submit">Cadastrar</button>
             </div>
         </form>
     </div>
