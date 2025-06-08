@@ -3,18 +3,12 @@ include_once ('conexao.php');
 
 if(!empty($_GET['id'])){
     $id = $_GET['id'];
-    $sqlSelect = "SELECT * FROM clientes WHERE id=$id"; // Alterado para 'clientes'
+    $sqlSelect = "SELECT * FROM clientes WHERE id=$id";
     $resultado = $conexao->query($sqlSelect);
     
-if($resultado->num_rows > 0){
-{
-    $sqlDelete="DELETE FROM clientes WHERE id=$id"; // Alterado para 'clientes'
+    if($resultado->num_rows > 0){
+    $sqlDelete="DELETE FROM clientes WHERE id=$id";
     $resultado = $conexao->query($sqlDelete);
-}
-    }
-    else{
-        header('Location: listar_cliente.php'); // Alterado para 'listar_cliente.php'
-        
-    }
+    header('Location: listar_cliente.php');}
 }
 ?>
