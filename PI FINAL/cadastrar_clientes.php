@@ -24,8 +24,8 @@ if(isset($_POST['submit'])){
 <body>
     
         <nav>
-        <h3>SISTEMA DEWEY</h3>
-        <h1>ADMINISTRADOR - <?php echo htmlspecialchars(strtoupper($nome_administrador)); ?></h1>
+        <h3>ADMINISTRADOR - <?php echo htmlspecialchars(strtoupper($nome_administrador)); ?></h3>
+        <h1>CADASTRAR CLIENTES</h1>
           <div class="menu">
             <button class="home"><a href="index.php"><img src="imagens/voltar.png"><h6>HOME</a><h6></button>
             <ul>
