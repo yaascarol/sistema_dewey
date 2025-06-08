@@ -6,12 +6,13 @@ if(isset($_POST['submit'])){
     $genero_id = $_POST['genero_id'];
     $resumo = $_POST['resumo'];
     $estoque = $_POST['estoque'];
+    $url_capa = $_POST['url_capa'];
 
-    $resultado = $conexao->query ("INSERT INTO livros(titulo, genero_id, resumo, estoque) 
-    VALUES ('$titulo', '$genero_id', '$resumo', '$estoque')");
-
+    $resultado = $conexao->query ("INSERT INTO livros(titulo, genero_id, resumo, estoque, url_capa) 
+    VALUES ('$titulo', '$genero_id', '$resumo', '$estoque', '$url_capa')");
 }
 ?>
+    
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -67,7 +68,8 @@ if(isset($_POST['submit'])){
     <div class="container">
         <form class="dados" action="cadastrar_livros.php" method="POST">
             <div id="dados-esquerda">
-                <img src="" alt="" id="capa">
+                <input type="url" name="url_capa" placeholder="URL da capa:" class="url-capa" oninput="atualizarCapa()" required>
+                <img src="" alt="capa do livro" id="capa" style="max-width: 200px; max-height: 300px; margin-top: 10px;">
                 <input type="number" name="estoque" placeholder="Estoque:" class="estoque-livro" required>
             </div>
             <div id="dados-direita">
@@ -80,5 +82,14 @@ if(isset($_POST['submit'])){
     </div>
     </div>
 
+<script>
+function atualizarCapa() {
+    const urlInput = document.querySelector('.url-capa');
+    const capaImg = document.getElementById('capa');
+    
+    capaImg.src = urlInput.value;
+}
+</script>
+              
 </body>
 </html>
