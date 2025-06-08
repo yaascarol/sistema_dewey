@@ -9,7 +9,6 @@ if (isset($_SESSION['admin_nome']) && !empty($_SESSION['admin_nome'])) {
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,46 +17,48 @@ if (isset($_SESSION['admin_nome']) && !empty($_SESSION['admin_nome'])) {
     <link rel="stylesheet" href="CSS/index.css">
 </head>
 <body>
-    <div class="container">
-        <div ID="adm">
-            <h3>ADMINISTRADOR - <?php echo htmlspecialchars(strtoupper($nome_administrador)); ?></h3>
-        </div>
-        <div class="menu">
+
+    <nav>
+        <h3>SISTEMA DEWEY</h3>
+        <h1>ADMINISTRADOR - <?php echo htmlspecialchars(strtoupper($nome_administrador)); ?></h1>
+          <div class="menu">
+            <button class="home"><a href="index.php"><img src="imagens/voltar.png"><h6>HOME</a><h6></button>
             <ul>
-                <li class="menu-icon"><img src="imagens/332-3321096_mobile-menu-brown-menu-icon-png - Copia.png" alt="">
-                    <ul>
-                        <li class="menu-dropdown">Administrador
-                            <ul class="menu-dropdown-right">
-                                <li><a href="cadastrar_adm.php">Cadastrar</a></li>
-                                <li><a href="listar_adm.php">Listar</a></li>
-                            </ul>
-                        </li>
-                        <li class="menu-dropdown">Livros
-                            <ul class="menu-dropdown-right">
-                                <li><a href="cadastrar_livros.php">Cadastrar</a></li>
-                                <li><a href="listar_livros.php">Listar</a></li>
-                            </ul>
-                        </li>
-                        <li class="menu-dropdown">Gêneros
-                            <ul class="menu-dropdown-right">
-                                <li><a href="cadastrar_generos.php">Cadastrar</a></li>
-                                <li><a href="listar_generos.php">Listar</a></li>
-                            </ul>
-                        </li>
-                        <li class="menu-dropdown">Clientes
-                            <ul class="menu-dropdown-right">
-                                <li><a href="cadastrar_clientes.php">Cadastrar</a></li>
-                                <li><a href="listar_clientes.php">Listar</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-            <nav>
-                <button class="search"><input type="search" placeholder="Consultar..."> <img src="imagens/search-icon-png-21.png"></button>
-            </nav>
-            <button class="user"><a href="login.php"><img src="imagens/logout-icon-2048x2048-libuexip.png"> <h6>SAIR</h6></a></button>
-        </div>
+              <li class="menu-icon"><img src="imagens/332-3321096_mobile-menu-brown-menu-icon-png.png" alt="">
+                  <ul>
+                      <li class="menu-dropdown">Administrador
+                          <ul class="menu-dropdown-right">
+                              <li><a href="cadastrar-adm.php">Cadastrar</a></li>
+                              <li><a href="listar-adm.php">Listar</a></li>
+                          </ul>
+                      </li>
+                      <li class="menu-dropdown">Livros
+                      <ul class="menu-dropdown-right">
+                          <li><a href="cadastrar-livro.php">Cadastrar</a></li>
+                          <li><a href="listar-livro.php">Listar</a></li>
+                      </ul>
+                      </li>
+                      <li class="menu-dropdown">Gêneros
+                          <ul class="menu-dropdown-right">
+                              <li><a href="cadastrar-genero.php">Cadastrar</a></li>
+                              <li><a href="listar-genero.php">Listar</a></li>
+                          </ul>
+                      </li>
+                      <li class="menu-dropdown">Leitores
+                          <ul class="menu-dropdown-right">
+                              <li><a href="cadastrar-leitor.php">Cadastrar</a></li>
+                              <li><a href="listar-leitor.php">Listar</a></li>
+                          </ul>
+                      </li>
+                  </ul>
+              </li>
+          </ul>
+          <button class="search"><input type="search" placeholder="Consultar..."> <img src="imagens/search-icon-png-21.png"></button>
+          <button class="user"><a href="login.php"><img src="imagens/logout-icon-2048x2048-libuexip.png"><h6>SAIR</a><h6></button>
+    </div>
+    </nav>
+
+<div class="container">
         <div class="listagem">
             <div class="livros">
                 <h4>LIVROS</h4>
