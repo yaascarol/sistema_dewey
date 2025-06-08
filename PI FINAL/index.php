@@ -28,26 +28,26 @@ if (isset($_SESSION['admin_nome']) && !empty($_SESSION['admin_nome'])) {
                   <ul>
                       <li class="menu-dropdown">Administrador
                           <ul class="menu-dropdown-right">
-                              <li><a href="cadastrar-adm.php">Cadastrar</a></li>
-                              <li><a href="listar-adm.php">Listar</a></li>
+                              <li><a href="cadastrar_adm.php">Cadastrar</a></li>
+                              <li><a href="listar_adm.php">Listar</a></li>
                           </ul>
                       </li>
                       <li class="menu-dropdown">Livros
                       <ul class="menu-dropdown-right">
-                          <li><a href="cadastrar-livro.php">Cadastrar</a></li>
-                          <li><a href="listar-livro.php">Listar</a></li>
+                          <li><a href="cadastrar_livros.php">Cadastrar</a></li>
+                          <li><a href="listar_livros.php">Listar</a></li>
                       </ul>
                       </li>
                       <li class="menu-dropdown">Gêneros
                           <ul class="menu-dropdown-right">
-                              <li><a href="cadastrar-genero.php">Cadastrar</a></li>
-                              <li><a href="listar-genero.php">Listar</a></li>
+                              <li><a href="cadastrar_generos.php">Cadastrar</a></li>
+                              <li><a href="listar_generos.php">Listar</a></li>
                           </ul>
                       </li>
                       <li class="menu-dropdown">Leitores
                           <ul class="menu-dropdown-right">
-                              <li><a href="cadastrar-leitor.php">Cadastrar</a></li>
-                              <li><a href="listar-leitor.php">Listar</a></li>
+                              <li><a href="cadastrar_clientes.php">Cadastrar</a></li>
+                              <li><a href="listar_clientes.php">Listar</a></li>
                           </ul>
                       </li>
                   </ul>
