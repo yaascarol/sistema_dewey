@@ -28,13 +28,13 @@ body {
     align-items: center;
     justify-content: center;
 }
-
 #dados-esquerda, #dados-direita {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     box-sizing: border-box;
+    gap: 30px
 }
 
 #dados-esquerda {
@@ -45,29 +45,45 @@ body {
     margin-left: 50px;
 }
       
-.nome, .telefone, .email, .endereco {
+.nome, .telefone, .email {
     color: #000000;
     font-size: 1rem;
     padding-left: 15px;
     width: 300px;
     height: 50px;
-    margin-bottom: 10px;
     border-radius: 15px;
     border: none;
     box-shadow: 0 5px 10px #a06a3890;
-    position: relative;
 }
 
-#capa {
-    margin-top: 5px;
-    width: 250px;
-    height: 330px;
+.endereco1, .endereco2 {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 30px;
-    background-color: #DBCDBC;
+    flex-direction: row;
+    gap: -30px;
 }
+.logradouro, .cidade {
+    color: #000000;
+    font-size: 1rem;
+    padding-left: 15px;
+    width: 150px;
+    height: 50px;
+    border-radius: 15px;
+    border: none;
+    box-shadow: 0 5px 10px #a06a3890;
+
+}
+
+.numero, .complemento, .uf,  .cep {
+    color: #000000;
+    font-size: 1rem;
+    padding-left: 15px;
+    width: 120px;
+    height: 50px;
+    border-radius: 15px;
+    border: none;
+    box-shadow: 0 5px 10px #a06a3890;
+}
+
 
 #dados-direita button {
     width: 310px;
@@ -126,6 +142,19 @@ input {
     cursor: pointer;
 }
 
+#editar_clientes {
+    text-decoration: none;
+    color: #ffffff;
+    width: 310px;
+    height: 40px;
+    background-color: #DBCDBC;;
+    border-radius: 15px;
+    border: none;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: larger;
+    color: #ffffff;
+    box-shadow: 0 5px 10px #a06a3890;
+}
 .sugestoes li:hover {
     background-color: #9c5625;
     color: #ffffff;
