@@ -2,11 +2,40 @@
 session_start();
 include('conexao.php');
 
-$nome_administrador = $_SESSION['nome_administrador'] ?? '';
+$nome_administrador = $_SESSION['admin_nome'] ?? '';
 
-$sql = "SELECT id, nome_genero FROM generos ORDER BY id DESC";
+$limite_por_pagina = 10;
+
+$pagina_atual = isset($_GET['pagina']) ? (int)$_GET['pagina'] : 1;
+
+if ($pagina_atual < 1) {
+    $pagina_atual = 1;
+}
+
+$offset = ($pagina_atual - 1) * $limite_por_pagina;
+
+$total_generos_query = $conexao->query("SELECT COUNT(*) as total FROM generos");
+$total_generos = 0;
+if ($total_generos_query && $row = $total_generos_query->fetch_assoc()) {
+    $total_generos = $row['total'];
+}
+
+$total_paginas = ceil($total_generos / $limite_por_pagina);
+
+if ($pagina_atual > $total_paginas && $total_paginas > 0) {
+    $pagina_atual = $total_paginas;
+    $offset = ($pagina_atual - 1) * $limite_por_pagina;
+} elseif ($total_paginas == 0) {
+    $offset = 0;
+    $pagina_atual = 1;
+}
+
+$sql = "SELECT id, nome_genero FROM generos ORDER BY nome_genero ASC LIMIT $limite_por_pagina OFFSET $offset";
 $resultado = $conexao->query($sql);
 
+if ($resultado === false) {
+    die("Erro na consulta: " . $conexao->error);
+}
 ?>
 
 <!DOCTYPE html>
@@ -18,6 +47,38 @@ $resultado = $conexao->query($sql);
     <title>Listagem de Gêneros</title>
     <link rel="stylesheet" href="CSS/nav_bar.css">
     <link rel="stylesheet" href="CSS/listar_generos.css">
+    <style>
+        .paginacao {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            padding: 10px 0;
+        }
+
+        .botao-paginacao {
+            display: inline-block;
+            padding: 8px 15px;
+            margin: 0 5px;
+            border: 1px solid #ccc;
+            border-radius: 20px;
+            text-decoration: none;
+            color: #333;
+            background-color: #f5f5f5;
+            transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+            font-weight: bold;
+        }
+
+        .botao-paginacao:hover {
+            background-color: #e0e0e0;
+            border-color: #aaa;
+        }
+
+        .botao-paginacao.ativo {
+            background-color: #8B4513;
+            color: white;
+            border-color: #8B4513;
+        }
+    </style>
 </head>
 <body>
 
@@ -30,39 +91,39 @@ $resultado = $conexao->query($sql);
             <button class="home"><a href="index.php"><img src="imagens/voltar.png"><h6>HOME</h6></a></button>
             <ul>
               <li class="menu-icon"><img src="imagens/332-3321096_mobile-menu-brown-menu-icon-png.png" alt="">
-                  <ul>
-                      <li class="menu-dropdown">Administrador
-                          <ul class="menu-dropdown-right">
-                              <li><a href="cadastrar_adm.php">Cadastrar</a></li>
-                              <li><a href="listar_adm.php">Listar</a></li>
-                          </ul>
-                      </li>
-                      <li class="menu-dropdown">Livros
-                      <ul class="menu-dropdown-right">
-                          <li><a href="cadastrar_livros.php">Cadastrar</a></li>
-                          <li><a href="listar_livros.php">Listar</a></li>
-                      </ul>
-                      </li>
-                      <li class="menu-dropdown">Gêneros
-                          <ul class="menu-dropdown-right">
-                              <li><a href="cadastrar_generos.php">Cadastrar</a></li>
-                              <li><a href="listar_generos.php">Listar</a></li>
-                          </ul>
-                      </li>
-                      <li class="menu-dropdown">Clientes
-                          <ul class="menu-dropdown-right">
-                              <li><a href="cadastrar_clientes.php">Cadastrar</a></li>
-                              <li><a href="listar_clientes.php">Listar</a></li>
-                          </ul>
-                      </li>
-                  </ul>
+                    <ul>
+                        <li class="menu-dropdown">Administrador
+                            <ul class="menu-dropdown-right">
+                                <li><a href="cadastrar_adm.php">Cadastrar</a></li>
+                                <li><a href="listar_adm.php">Listar</a></li>
+                            </ul>
+                        </li>
+                        <li class="menu-dropdown">Livros
+                            <ul class="menu-dropdown-right">
+                                <li><a href="cadastrar_livros.php">Cadastrar</a></li>
+                                <li><a href="listar_livros.php">Listar</a></li>
+                            </ul>
+                        </li>
+                        <li class="menu-dropdown">Gêneros
+                            <ul class="menu-dropdown-right">
+                                <li><a href="cadastrar_generos.php">Cadastrar</a></li>
+                                <li><a href="listar_generos.php">Listar</a></li>
+                            </ul>
+                        </li>
+                        <li class="menu-dropdown">Clientes
+                            <ul class="menu-dropdown-right">
+                                <li><a href="cadastrar_clientes.php">Cadastrar</a></li>
+                                <li><a href="listar_clientes.php">Listar</a></li>
+                            </ul>
+                        </li>
+                    </ul>
               </li>
           </ul>
-          <button class="search"><input type="search" placeholder="Consultar..."> <img src="imagens/search-icon-png-21.png"></button>
-          <button class="user"><a href="login.php"><img src="imagens/logout-icon-2048x2048-libuexip.png"><h6>SAIR</h6></a></button>
-    </div>
+            <button class="search"><input type="search" placeholder="Consultar..."> <img src="imagens/search-icon-png-21.png"></button>
+            <button class="user"><a href="login.php"><img src="imagens/logout-icon-2048x2048-libuexip.png"><h6>SAIR</h6></a></button>
+        </div>
     </nav>
-              
+
     <div class="container">
         <div class="content">
             <aside class="filter-menu">
@@ -76,7 +137,7 @@ $resultado = $conexao->query($sql);
                 </div>
                 <button onclick="cleanFilters()">Limpar</button>
             </aside>
-            
+
             <div class="listagemDireita">
                 <table class="tableProdutos">
                     <thead>
@@ -90,8 +151,7 @@ $resultado = $conexao->query($sql);
                             if ($resultado->num_rows > 0) {
                                 while($user_data = mysqli_fetch_assoc($resultado)){
                                     echo "<tr>";
-                                    // Acessa o nome do gênero usando a coluna 'nome_genero'
-                                    echo "<td>".htmlspecialchars($user_data['nome_genero'])."</td>"; 
+                                    echo "<td>".htmlspecialchars($user_data['nome_genero'])."</td>";
                                     echo "<td>
                                     <a class='btnEditar' href='editar_generos.php?id=".htmlspecialchars($user_data['id'])."'>Editar</a>
                                     <a class='btnExcluir' href='excluir_generos.php?id=".htmlspecialchars($user_data['id'])."'>Excluir</a>
@@ -99,18 +159,31 @@ $resultado = $conexao->query($sql);
                                     echo "</tr>";
                                 }
                             } else {
-                                echo "<tr><td colspan='2'>Nenhum gênero encontrado.</td></tr>"; // Colspan ajustado
+                                echo "<tr><td colspan='2'>Nenhum gênero encontrado.</td></tr>";
                             }
                         ?>
                     </tbody>
                 </table>
             </div>
         </div>
-        
-        <div class="pagina">
-            <button>1</button>
-            <button>2</button>
-            <button>3</button>
+
+        <div class="paginacao">
+            <?php if ($total_paginas > 1): ?>
+                <?php if ($pagina_atual > 1): ?>
+                    <a href="listar_generos.php?pagina=<?php echo $pagina_atual - 1; ?>" class="botao-paginacao">Anterior</a>
+                <?php endif; ?>
+
+                <?php for ($i = 1; $i <= $total_paginas; $i++): ?>
+                    <a href="listar_generos.php?pagina=<?php echo $i; ?>"
+                       class="botao-paginacao <?php echo ($i == $pagina_atual) ? 'ativo' : ''; ?>">
+                        <?php echo $i; ?>
+                    </a>
+                <?php endfor; ?>
+
+                <?php if ($pagina_atual < $total_paginas): ?>
+                    <a href="listar_generos.php?pagina=<?php echo $pagina_atual + 1; ?>" class="botao-paginacao">Próximo</a>
+                <?php endif; ?>
+            <?php endif; ?>
         </div>
     </div>
 
