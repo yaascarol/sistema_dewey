@@ -2,11 +2,19 @@
 session_start();
 include_once ('conexao.php');
 
-if (!isset($_SESSION['nome_administrador'])) {
-    header("Location: login.php");
-    exit();
-}
-$nome_administrador = $_SESSION['nome_administrador'];
+// CORREÇÃO AQUI: Usando o operador de coalescência nula para evitar o erro "Undefined array key"
+$nome_administrador = $_SESSION['nome_administrador'] ?? ''; 
+
+$id = '';
+$nome = '';
+$telefone = '';
+$email = '';
+$logradouro = '';
+$numero = '';
+$complemento = '';
+$cidade = '';
+$uf = '';
+$cep = '';
 
 if(!empty($_GET['id'])){
     $id = $_GET['id'];
@@ -56,42 +64,42 @@ if(!empty($_GET['id'])){
 <body>
 
     <nav>
-        <h3>ADMINISTRADOR - <?php echo htmlspecialchars(strtoupper($nome_administrador ?? '')); ?></h3>
+        <h3>ADMINISTRADOR - <?php echo htmlspecialchars(strtoupper($nome_administrador)); ?></h3>
         <h1>EDITAR CLIENTE</h1>
-          <div class="menu">
-            <button class="home"><a href="index.php"><img src="imagens/voltar.png"><h6>HOME</h6></a></button>
-            <ul>
-              <li class="menu-icon"><img src="imagens/332-3321096_mobile-menu-brown-menu-icon-png.png" alt="">
-                  <ul>
-                      <li class="menu-dropdown">Administrador
-                          <ul class="menu-dropdown-right">
-                              <li><a href="cadastrar_adm.php">Cadastrar</a></li>
-                              <li><a href="listar_adm.php">Listar</a></li>
-                          </ul>
-                      </li>
-                      <li class="menu-dropdown">Livros
-                      <ul class="menu-dropdown-right">
-                          <li><a href="cadastrar_livros.php">Cadastrar</a></li>
-                          <li><a href="listar_livros.php">Listar</a></li>
-                      </ul>
-                      </li>
-                      <li class="menu-dropdown">Gêneros
-                          <ul class="menu-dropdown-right">
-                              <li><a href="cadastrar_generos.php">Cadastrar</a></li>
-                              <li><a href="listar_generos.php">Listar</a></li>
-                          </ul>
-                      </li>
-                      <li class="menu-dropdown">Clientes
-                          <ul class="menu-dropdown-right">
-                              <li><a href="cadastrar_clientes.php">Cadastrar</a></li>
-                              <li><a href="listar_clientes.php">Listar</a></li>
-                          </ul>
-                      </li>
-                  </ul>
-              </li>
-          </ul>
-          <button class="search"><input type="search" placeholder="Consultar..."> <img src="imagens/search-icon-png-21.png"></button>
-          <button class="user"><a href="login.php"><img src="imagens/logout-icon-2048x2048-libuexip.png"><h6>SAIR</h6></a></button>
+            <div class="menu">
+                <button class="home"><a href="index.php"><img src="imagens/voltar.png"><h6>HOME</h6></a></button>
+                <ul>
+                  <li class="menu-icon"><img src="imagens/332-3321096_mobile-menu-brown-menu-icon-png.png" alt="">
+                        <ul>
+                            <li class="menu-dropdown">Administrador
+                                <ul class="menu-dropdown-right">
+                                    <li><a href="cadastrar_adm.php">Cadastrar</a></li>
+                                    <li><a href="listar_adm.php">Listar</a></li>
+                                </ul>
+                            </li>
+                            <li class="menu-dropdown">Livros
+                            <ul class="menu-dropdown-right">
+                                <li><a href="cadastrar_livros.php">Cadastrar</a></li>
+                                <li><a href="listar_livros.php">Listar</a></li>
+                            </ul>
+                            </li>
+                            <li class="menu-dropdown">Gêneros
+                                <ul class="menu-dropdown-right">
+                                    <li><a href="cadastrar_generos.php">Cadastrar</a></li>
+                                    <li><a href="listar_generos.php">Listar</a></li>
+                                </ul>
+                            </li>
+                            <li class="menu-dropdown">Clientes
+                                <ul class="menu-dropdown-right">
+                                    <li><a href="cadastrar_clientes.php">Cadastrar</a></li>
+                                    <li><a href="listar_clientes.php">Listar</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+            </ul>
+            <button class="search"><input type="search" placeholder="Consultar..."> <img src="imagens/search-icon-png-21.png"></button>
+            <button class="user"><a href="login.php"><img src="imagens/logout-icon-2048x2048-libuexip.png"><h6>SAIR</h6></a></button>
     </div>
     </nav>
 
