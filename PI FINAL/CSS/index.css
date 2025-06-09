@@ -41,7 +41,7 @@ body {
     width: 75%;
 }
 
-.livros, .generos, .leitores {
+.livros, .generos, .clientes {
     width: 13.11vw;
     height: 27.6vh;
     background-color: #DBCDBC;
@@ -97,7 +97,7 @@ body {
         margin-top: 200px;
     }
 
-    .livros, .generos, .leitores {
+    .livros, .generos, .clientes {
         width: 120px;
         height: 120px;
         font-size: small;
@@ -131,7 +131,7 @@ body {
         margin-top: 100px;
     }
 
-    .livros, .generos, .leitores {
+    .livros, .generos, .clientes {
         width: 120px;
         height: 120px;
         font-size: small;
