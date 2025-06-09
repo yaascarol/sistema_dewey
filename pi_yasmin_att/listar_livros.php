@@ -157,7 +157,6 @@ if ($resultado === false) {
                 <table class="tableProdutos">
                     <thead>
                         <tr>
-                            <th scope="col">ID</th>
                             <th scope="col">Capa</th>
                             <th scope="col">Título</th>
                             <th scope="col">Gênero</th>
@@ -171,7 +170,6 @@ if ($resultado === false) {
                             if ($resultado->num_rows > 0) {
                                 while($user_data = mysqli_fetch_assoc($resultado)){
                                     echo "<tr>";
-                                    echo "<td>".htmlspecialchars($user_data['id'])."</td>";
                                     echo "<td><img src='".htmlspecialchars($user_data['capa'])."' alt='Capa' style='width: 50px; height: auto;' /></td>";
                                     echo "<td>".htmlspecialchars($user_data['titulo'])."</td>";
                                     echo "<td>".htmlspecialchars($user_data['genero_nome'])."</td>";
