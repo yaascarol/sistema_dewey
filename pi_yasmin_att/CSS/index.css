@@ -1,0 +1,49 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #f0f0f0;
+}
+
+.container{
+    border-radius: 30px;
+    box-shadow: 0 10px 20px #afacac;
+    width: 65vw;
+    height: 65vh;
+    display: flex;
+    flex-direction: column;
+    background-image: radial-gradient(#fcdebe91, #fcdebe3c);
+    align-items: center;
+    justify-content: center;
+}
+
+
+
+.listagem { 
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    gap: 80px;
+    text-align: center;
+    font-size: larger;
+    margin-bottom: 50px;
+    width: 75%;
+}
+
+.livros, .generos, .clientes {
+    width: 13.11vw;
+    height: 27.6vh;
+    background-color: #DBCDBC;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    border-radius: 10%;
+}
