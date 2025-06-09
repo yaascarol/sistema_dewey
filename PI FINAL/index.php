@@ -1,10 +1,30 @@
 <?php
 session_start();
+require_once('conexao.php');
 
 $nome_administrador = "(NOME)";
 
 if (isset($_SESSION['admin_nome']) && !empty($_SESSION['admin_nome'])) {
     $nome_administrador = $_SESSION['admin_nome'];
+}
+
+$qtd_livros = 0;
+$qtd_generos = 0;
+$qtd_clientes = 0;
+
+$result_livros = $conexao->query("SELECT COUNT(*) as total FROM livros");
+if ($result_livros && $row = $result_livros->fetch_assoc()) {
+    $qtd_livros = $row['total'];
+}
+
+$result_generos = $conexao->query("SELECT COUNT(*) as total FROM generos");
+if ($result_generos && $row = $result_generos->fetch_assoc()) {
+    $qtd_generos = $row['total'];
+}
+
+$result_clientes = $conexao->query("SELECT COUNT(*) as total FROM clientes");
+if ($result_clientes && $row = $result_clientes->fetch_assoc()) {
+    $qtd_clientes = $row['total'];
 }
 ?>
 <!DOCTYPE html>
@@ -20,9 +40,9 @@ if (isset($_SESSION['admin_nome']) && !empty($_SESSION['admin_nome'])) {
 
     <nav>
         <h3>SISTEMA DEWEY</h3>
-        <h1>ADMINISTRADOR - <?php echo htmlspecialchars(strtoupper($nome_administrador)); ?></h1>
-          <div class="menu">
-            <button class="home"><a href="index.php"><img src="imagens/voltar.png"><h6>HOME</a><h6></button>
+        <h1>Bem-vindo - <?php echo htmlspecialchars(strtoupper($nome_administrador)); ?></h1>
+        <div class="menu">
+            <button class="home"><a href="index.php"><img src="imagens/voltar.png"><h6>HOME</h6></a></button>
             <ul>
               <li class="menu-icon"><img src="imagens/332-3321096_mobile-menu-brown-menu-icon-png.png" alt="">
                   <ul>
@@ -33,10 +53,10 @@ if (isset($_SESSION['admin_nome']) && !empty($_SESSION['admin_nome'])) {
                           </ul>
                       </li>
                       <li class="menu-dropdown">Livros
-                      <ul class="menu-dropdown-right">
-                          <li><a href="cadastrar_livros.php">Cadastrar</a></li>
-                          <li><a href="listar_livros.php">Listar</a></li>
-                      </ul>
+                          <ul class="menu-dropdown-right">
+                              <li><a href="cadastrar_livros.php">Cadastrar</a></li>
+                              <li><a href="listar_livros.php">Listar</a></li>
+                          </ul>
                       </li>
                       <li class="menu-dropdown">Gêneros
                           <ul class="menu-dropdown-right">
@@ -44,7 +64,7 @@ if (isset($_SESSION['admin_nome']) && !empty($_SESSION['admin_nome'])) {
                               <li><a href="listar_generos.php">Listar</a></li>
                           </ul>
                       </li>
-                      <li class="menu-dropdown">Leitores
+                      <li class="menu-dropdown">Clientes
                           <ul class="menu-dropdown-right">
                               <li><a href="cadastrar_clientes.php">Cadastrar</a></li>
                               <li><a href="listar_clientes.php">Listar</a></li>
@@ -54,23 +74,23 @@ if (isset($_SESSION['admin_nome']) && !empty($_SESSION['admin_nome'])) {
               </li>
           </ul>
           <button class="search"><input type="search" placeholder="Consultar..."> <img src="imagens/search-icon-png-21.png"></button>
-          <button class="user"><a href="login.php"><img src="imagens/logout-icon-2048x2048-libuexip.png"><h6>SAIR</a><h6></button>
-    </div>
+          <button class="user"><a href="login.php"><img src="imagens/logout-icon-2048x2048-libuexip.png"><h6>SAIR</h6></a></button>
+        </div>
     </nav>
 
-<div class="container">
+    <div class="container">
         <div class="listagem">
             <div class="livros">
                 <h4>LIVROS</h4>
-                <p>X CADASTRADOS</p>
+                <p><?php echo $qtd_livros; ?> CADASTRADOS</p>
             </div>
             <div class="generos">
                 <h4>GÊNEROS</h4>
-                <p>X CADASTRADOS</p>
+                <p><?php echo $qtd_generos; ?> CADASTRADOS</p>
             </div>
-            <div class="leitores">
-                <h4>LEITORES</h4>
-                <p>X CADASTRADOS</p>
+            <div class="clientes">
+                <h4>CLIENTES</h4>
+                <p><?php echo $qtd_clientes; ?> CADASTRADOS</p>
             </div>
         </div>
     </div>
