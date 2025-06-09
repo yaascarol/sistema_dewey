@@ -1,127 +1,140 @@
 <?php
 session_start();
-require_once('conexao.php');
+include_once('conexao.php');
 
-$nome_administrador = isset($_SESSION['nome_administrador']) ? $_SESSION['nome_administrador'] : '';
+$nome_administrador = $_SESSION['nome_administrador'] ?? '';
 
-$mensagem = '';
+if (!empty($_GET['id'])) {
+    $id = $_GET['id'];
 
-if (isset($_POST['submit'])) {
-    // Coleta e validação simples dos dados
-    $nome = $_POST['nome'] ?? '';
-    $telefone = $_POST['telefone'] ?? '';
-    $email = $_POST['email'] ?? '';
-    $logradouro = $_POST['logradouro'] ?? '';
-    $numero = $_POST['numero'] ?? '';
-    $complemento = $_POST['complemento'] ?? '';
-    $cidade = $_POST['cidade'] ?? '';
-    $uf = $_POST['uf'] ?? '';
-    $cep = $_POST['cep'] ?? '';
+    $sqlSelect = "SELECT * FROM clientes WHERE id=$id";
+    $resultado = $conexao->query($sqlSelect);
 
-    // Preparando statement para evitar SQL injection
-    $stmt = $conexao->prepare("INSERT INTO clientes (nome, telefone, email, logradouro, numero, complemento, cidade, uf, cep) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
-
-    if ($stmt) {
-        $stmt->bind_param("sssssssss", $nome, $telefone, $email, $logradouro, $numero, $complemento, $cidade, $uf, $cep);
-        if ($stmt->execute()) {
-            $mensagem = "Cliente cadastrado com sucesso!";
-        } else {
-            $mensagem = "Erro ao cadastrar cliente: " . $stmt->error;
-        }
-        $stmt->close();
-    } else {
-        $mensagem = "Erro na preparação da query: " . $conexao->error;
+    if ($conexao->connect_error) {
+        die("Erro na conexão: " . $conexao->connect_error);
     }
+    if ($resultado === false) {
+        die("Erro na consulta: " . $conexao->error);
+    }
+
+    if ($resultado->num_rows > 0) {
+        while ($user_data = mysqli_fetch_assoc($resultado)) {
+            $nome = $user_data['nome'];
+            $telefone = $user_data['telefone'];
+            $email = $user_data['email'];
+            $logradouro = $user_data['logradouro'];
+            $numero = $user_data['numero'];
+            $complemento = $user_data['complemento'];
+            $cidade = $user_data['cidade'];
+            $uf = $user_data['uf'];
+            $cep = $user_data['cep'];
+        }
+    } else {
+        header('Location: listar_clientes.php');
+        exit();
+    }
+} else {
+    header('Location: listar_clientes.php');
+    exit();
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="pt-br">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Cadastrar - Clientes</title>
-    <link rel="stylesheet" href="CSS/nav_bar.css" />
-    <link rel="stylesheet" href="CSS/cadastrar_clientes.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Cliente</title>
+    <link rel="stylesheet" href="CSS/nav_bar.css">
+    <link rel="stylesheet" href="CSS/editar_clientes.css">
 </head>
 
 <body>
+
     <nav>
-        <?php if ($nome_administrador): ?>
-            <h3>ADMINISTRADOR - <?php echo htmlspecialchars(strtoupper($nome_administrador)); ?></h3>
-        <?php endif; ?>
-        <h1>CADASTRAR CLIENTES</h1>
-        <div class="menu">
-            <button class="home">
-                <a href="index.php"><img src="imagens/voltar.png" alt="Voltar" /><h6>HOME</h6></a>
-            </button>
+        <h3>ADMINISTRADOR - <?php echo htmlspecialchars(strtoupper($nome_administrador ?? '')); ?></h3>
+        <h1>EDITAR CLIENTE</h1>
+          <div class="menu">
+            <button class="home"><a href="index.php"><img src="imagens/voltar.png"><h6>HOME</h6></a></button>
             <ul>
-                <li class="menu-icon"><img src="imagens/332-3321096_mobile-menu-brown-menu-icon-png.png" alt="" />
-                    <ul>
-                        <li class="menu-dropdown">Administrador
-                            <ul class="menu-dropdown-right">
-                                <li><a href="cadastrar_adm.php">Cadastrar</a></li>
-                                <li><a href="listar_adm.php">Listar</a></li>
-                            </ul>
-                        </li>
-                        <li class="menu-dropdown">Livros
-                            <ul class="menu-dropdown-right">
-                                <li><a href="cadastrar_livros.php">Cadastrar</a></li>
-                                <li><a href="listar_livros.php">Listar</a></li>
-                            </ul>
-                        </li>
-                        <li class="menu-dropdown">Gêneros
-                            <ul class="menu-dropdown-right">
-                                <li><a href="cadastrar_generos.php">Cadastrar</a></li>
-                                <li><a href="listar_generos.php">Listar</a></li>
-                            </ul>
-                        </li>
-                        <li class="menu-dropdown">Clientes
-                            <ul class="menu-dropdown-right">
-                                <li><a href="cadastrar_clientes.php">Cadastrar</a></li>
-                                <li><a href="listar_clientes.php">Listar</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-            <button class="search">
-                <input type="search" placeholder="Consultar..." />
-                <img src="imagens/search-icon-png-21.png" alt="Buscar" />
-            </button>
-            <button class="user">
-                <a href="login.php"><img src="imagens/logout-icon-2048x2048-libuexip.png" alt="Sair" /><h6>SAIR</h6></a>
-            </button>
-        </div>
+              <li class="menu-icon"><img src="imagens/332-3321096_mobile-menu-brown-menu-icon-png.png" alt="">
+                  <ul>
+                      <li class="menu-dropdown">Administrador
+                          <ul class="menu-dropdown-right">
+                              <li><a href="cadastrar_adm.php">Cadastrar</a></li>
+                              <li><a href="listar_adm.php">Listar</a></li>
+                          </ul>
+                      </li>
+                      <li class="menu-dropdown">Livros
+                      <ul class="menu-dropdown-right">
+                          <li><a href="cadastrar_livros.php">Cadastrar</a></li>
+                          <li><a href="listar_livros.php">Listar</a></li>
+                      </ul>
+                      </li>
+                      <li class="menu-dropdown">Gêneros
+                          <ul class="menu-dropdown-right">
+                              <li><a href="cadastrar_generos.php">Cadastrar</a></li>
+                              <li><a href="listar_generos.php">Listar</a></li>
+                          </ul>
+                      </li>
+                      <li class="menu-dropdown">Clientes
+                          <ul class="menu-dropdown-right">
+                              <li><a href="cadastrar_clientes.php">Cadastrar</a></li>
+                              <li><a href="listar_clientes.php">Listar</a></li>
+                          </ul>
+                      </li>
+                  </ul>
+              </li>
+          </ul>
+          <button class="search"><input type="search" placeholder="Consultar..."> <img src="imagens/search-icon-png-21.png"></button>
+          <button class="user"><a href="login.php"><img src="imagens/logout-icon-2048x2048-libuexip.png"><h6>SAIR</h6></a></button>
+    </div>
     </nav>
 
     <div class="container">
-        <?php if ($mensagem): ?>
-            <p style="color: green; font-weight: bold; margin-bottom: 15px;"><?php echo htmlspecialchars($mensagem); ?></p>
-        <?php endif; ?>
-
-        <form class="dados" action="cadastrar_clientes.php" method="post">
+        <form class="dados" action="atualizar_clientes.php" method="POST">
             <div id="dados-esquerda">
-                <input type="text" name="nome" placeholder="Nome:" class="nome" required />
-                <input type="tel" name="telefone" placeholder="Telefone:" class="telefone" required />
-                <input type="email" name="email" placeholder="E-mail:" class="email" required />
+            <div class="input-wrapper">
+                    <input type="text" name="nome" placeholder="Nome:" class="nome" value="<?php echo htmlspecialchars($nome ?? ''); ?>">
+                </div>
+                <div class="input-wrapper">
+                    <input type="tel" name="telefone" placeholder="Telefone:" class="telefone" value="<?php echo htmlspecialchars($telefone ?? ''); ?>">
+                </div>
+                <div class="input-wrapper">
+                    <input type="email" name="email" placeholder="E-mail:" class="email" value="<?php echo htmlspecialchars($email ?? ''); ?>">
+                </div>
             </div>
             <div id="dados-direita">
                 <div class="endereco1">
-                    <input type="text" name="logradouro" placeholder="Logradouro:" class="logradouro" required />
-                    <input type="text" name="numero" placeholder="Número:" class="numero" required />
-                    <input type="text" name="complemento" placeholder="Complemento:" class="complemento" />
+                    <div class="input-wrapper">
+                        <input type="text" name="logradouro" placeholder="Logradouro:" class="logradouro" value="<?php echo htmlspecialchars($logradouro ?? ''); ?>">
+                    </div>
+                    <div class="input-wrapper">
+                        <input type="text" name="numero" placeholder="Número:" class="numero" value="<?php echo htmlspecialchars($numero ?? ''); ?>">
+                    </div>
+                    <div class="input-wrapper">
+                        <input type="text" name="complemento" placeholder="Complemento:" class="complemento" value="<?php echo htmlspecialchars($complemento ?? ''); ?>">
+                    </div>
                 </div>
                 <div class="endereco2">
-                    <input type="text" name="cidade" placeholder="Cidade:" class="cidade" required />
-                    <input type="text" name="uf" placeholder="UF:" class="uf" maxlength="2" required />
-                    <input type="text" name="cep" placeholder="CEP:" class="cep" required />
+                    <div class="input-wrapper">
+                        <input type="text" name="cidade" placeholder="Cidade:" class="cidade" value="<?php echo htmlspecialchars($cidade ?? ''); ?>">
+                    </div>
+                    <div class="input-wrapper">
+                        <input type="text" name="uf" placeholder="UF:" class="uf" value="<?php echo htmlspecialchars($uf ?? ''); ?>">
+                    </div>
+                    <div class="input-wrapper">
+                        <input type="text" name="cep" placeholder="CEP:" class="cep" value="<?php echo htmlspecialchars($cep ?? ''); ?>">
+                    </div>
                 </div>
-                <button type="submit" name="submit">Cadastrar</button>
+                <ul class="sugestoes"></ul>
+                <input type="hidden" name="id" value="<?php echo htmlspecialchars($id ?? ''); ?>">
+                <input type="submit" name="update" id="editar_clientes" value="Editar">
             </div>
         </form>
     </div>
+
+    <script src="editleitor-script.js"></script>
 </body>
 
 </html>
