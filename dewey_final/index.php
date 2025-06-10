@@ -2,7 +2,7 @@
 session_start();
 require_once('conexao.php');
 
-$nome_administrador = isset($_SESSION['admin_nome']) && !empty($_SESSION['admin_nome']) ? $_SESSION['admin_nome'] : ''; // Deixa vazio para "Bem-vindo" sem nome
+$nome_administrador = isset($_SESSION['admin_nome']) && !empty($_SESSION['admin_nome']) ? $_SESSION['admin_nome'] : '';
 
 $qtd_livros = 0;
 $qtd_generos = 0;
